@@ -16,6 +16,8 @@ def hello_world():
 def cifrar_frase():
     frase = request.json['data']
     chave = request.json['key']
+    if len(chave) != 3:
+        return make_response(jsonify({'error': 'Chave inválida'}), 400)
     return jsonify({'cifra': cifrar(frase, chave)})
 
 #rota para decifrar
@@ -23,6 +25,8 @@ def cifrar_frase():
 def decifrar_frase():
     frase = request.json['data']
     chave = request.json['key']
-    return jsonify({'descifra': decifrar(frase, chave)})
+    if len(chave) != 3:
+        return make_response(jsonify({'error': 'Chave inválida'}), 400)
+    return jsonify({'decifra': decifrar(frase, chave)})
 
 app.run(host='0.0.0.0', port=5000, debug=True)
