@@ -13,23 +13,35 @@ const chave = ref('');
 // declaracao de funcoes
 
 async function HandleCifrar() {
-  if(chave.value.length != 3) return alert('Chave deve ter 3 digitos');
+  // if(String(chave.value).length !== 3) return alert('Chave deve ter 3 digitos')
   const chaveArray = String(chave.value).split('');
-  const response = await CifradorApi.cifrar({
-    data: text_normal.value,
-    key: chaveArray
-  });
-  text_cifrado.value = response.data.cifra;
+  let responseText = '';
+  try{
+    const response = await CifradorApi.cifrar({
+      data: text_normal.value,
+      key: chaveArray
+    });
+    responseText = response.data.cifra;
+  } catch(e) {
+    responseText = e.response.data.error;
+  }
+  text_cifrado.value =responseText;
 }
 
 async function HandleDecifrar() {
-  if(chave.value.length != 3) return alert('Chave deve ter 3 digitos');
+  // if(String(chave.value).length !== 3) return alert('Chave deve ter 3 digitos')
   const chaveArray = String(chave.value).split('');
+  let responseText = '';
+  try{
   const response = await CifradorApi.decifrar({
     data: text_cifrado.value,
     key: chaveArray
   });
-  text_normal.value = response.data.descifra;
+  responseText = response.data.decifra;
+} catch(e) {
+  responseText = e.response.data.error;
+}
+  text_normal.value = responseText;
 }
 
 function HandleLimpar() {
@@ -37,9 +49,6 @@ function HandleLimpar() {
   text_cifrado.value = '';
   chave.value = '';
 }
-
-
-
 </script>
 
 <template>
