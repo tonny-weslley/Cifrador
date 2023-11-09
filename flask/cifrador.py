@@ -1,7 +1,6 @@
 import string
 lista = string.ascii_lowercase + string.ascii_uppercase+ string.digits + string.punctuation + ' '
 
-#função para cifrar
 def cifrar(frase, chave):
     cifra = ""
     chave_atual = [int(chave[i]) for i in range(3)]
