@@ -1,0 +1,25 @@
+version: '3'
+services:
+  flask: 
+    container_name: flask-api
+    build:
+      context: ./flask
+      dockerfile: Dockerfile
+    stop_signal: SIGINT
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./flask:/app
+    restart: always
+  vue:
+    container_name: vue-app
+    build:
+      context: ./vue
+      dockerfile: Dockerfile
+    command: npm run dev --host
+    stop_signal: SIGINT
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./vue:/app
+    restart: always
