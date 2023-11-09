@@ -13,7 +13,7 @@ const chave = ref('');
 // declaracao de funcoes
 
 async function HandleCifrar() {
-  if(chave.value.length < 3) return alert('Chave deve ter 3 digitos');
+  if(chave.value.length != 3) return alert('Chave deve ter 3 digitos');
   const chaveArray = String(chave.value).split('');
   const response = await CifradorApi.cifrar({
     data: text_normal.value,
@@ -23,7 +23,7 @@ async function HandleCifrar() {
 }
 
 async function HandleDecifrar() {
-  if(chave.value.length < 3) return alert('Chave deve ter 3 digitos');
+  if(chave.value.length != 3) return alert('Chave deve ter 3 digitos');
   const chaveArray = String(chave.value).split('');
   const response = await CifradorApi.decifrar({
     data: text_cifrado.value,
